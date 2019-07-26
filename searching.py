@@ -4,7 +4,7 @@ import sys
 import os
 
 patht = "D://telss.txt"
-pathv = "D://Vitr.txt"
+pathv = "D://Vitr1.txt"
 listel = []
 
 ff = open(pathv, 'r')
