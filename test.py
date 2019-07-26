@@ -6,7 +6,8 @@ import os
 
 class Main:
     def __init__(self):
-        pass
+        print(os.listdir("."))
+        print(os.path.exists("./test.py"))
 
 
 if __name__ == '__main__':

@@ -3,8 +3,8 @@ __author__ = 'Сергей Полунец'
 import sys
 import os
 
-patht = "D://telss.txt"
-pathv = "D://Vitr1.txt"
+patht = "./telss.txt"
+pathv = "./Vitr1.txt"
 listel = []
 
 ff = open(pathv, 'r')
