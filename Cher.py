@@ -29,7 +29,7 @@ for i in tels:
         telss.append('38' + ii)
     if len(ii) == 12:
         telss.append(ii)
-pathv = "./Vitr.txt"
+pathv = "./Vitr1.txt"
 ff = open(pathv, 'r')
 textv = ff.read()
 ff.close()
