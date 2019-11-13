@@ -9,6 +9,7 @@ class Main:
     pathv = "./us.txt"
     listel = []
     imters = []
+
     def __init__(self):
         self.ff = open(self.pathv, mode="r", encoding="utf-8")
         self.textv = self.ff.read().replace("\n", ' ')
@@ -17,6 +18,7 @@ class Main:
         self.ff = open(self.patht, 'r')
         self.textt = self.ff.readlines()
         self.ff.close()
+
     def worck(self):
         self.results = 0
         self.text = len(self.textv)
@@ -39,13 +41,15 @@ class Main:
             self.findal()
         else:
             self.tels(telep=telep, text=self.textv, result=self.result)
+
     def findal(self):
         self.x = 1
         for i in self.imters:
             self.x = self.x + i
-            print( self.texts[self.x - 22: self.x + 58])
+            print(self.texts[self.x - 22: self.x + 58])
             print("-------------------------------------")
-        return  self.x
+        return self.x
+
 
 if __name__ == '__main__':
     m = Main()
