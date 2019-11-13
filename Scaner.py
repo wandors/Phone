@@ -8,12 +8,12 @@ class Main:
     patht = "./telss.txt"
     pathv = "./us.txt"
     listel = []
-    imters = 0
+    imters = []
     def __init__(self):
         self.ff = open(self.pathv, mode="r", encoding="utf-8")
-        self.textv = self.ff.read()
+        self.textv = self.ff.read().replace("\n", ' ')
         self.ff.close()
-        #self.textv = self.textv.replace(" ", "")
+        self.texts = self.textv
         self.ff = open(self.patht, 'r')
         self.textt = self.ff.readlines()
         self.ff.close()
@@ -25,24 +25,27 @@ class Main:
         for self.trl in self.listel:
             self.result = self.textv.find(self.trl)
             if self.result == -1:
+                self.imters = []
                 pass
             else:
-
-                self.tels(telep=self.trl, text=self.textv, result=self.result,inter= i)
+                self.tels(telep=self.trl, text=self.textv, result=self.result)
 
     def tels(self, telep, text, result):
-
         result += 1
         self.textv = text[result:]
-        print(result-1)
-        print(result+55)
-        print(self.textv[:55].replace('\n', ' '))
-
+        self.imters.append(result)
         self.result = self.textv.find(telep)
         if self.result == -1:
-            pass
+            self.findal()
         else:
-            self.tels(telep=telep, text=self.textv,result=self.result)
+            self.tels(telep=telep, text=self.textv, result=self.result)
+    def findal(self):
+        self.x = 1
+        for i in self.imters:
+            self.x = self.x + i
+            print( self.texts[self.x - 22: self.x + 58])
+            print("-----------------")
+        return  self.x
 
 
 
