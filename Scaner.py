@@ -44,15 +44,8 @@ class Main:
         for i in self.imters:
             self.x = self.x + i
             print( self.texts[self.x - 22: self.x + 58])
-            print("-----------------")
+            print("-------------------------------------")
         return  self.x
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     m = Main()
