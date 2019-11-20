@@ -14,7 +14,7 @@ def pdfparser(data):
     retstr = io.StringIO()
     codec = 'utf-8'
     laparams = LAParams()
-    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    device = TextConverter(rsrcmgr, retstr, codec = "utf-8", laparams=laparams)
     # Create a PDF interpreter object.
     interpreter = PDFPageInterpreter(rsrcmgr, device)
     # Process each page contained in the document.
@@ -23,6 +23,9 @@ def pdfparser(data):
         interpreter.process_page(page)
         data = retstr.getvalue()
 
+    with open('uss.txt', 'w', encoding='utf-8') as file:
+        file.write(data)
+        file.close()
     print(data)
 
 if __name__ == '__main__':
