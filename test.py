@@ -10,11 +10,9 @@ inter = []
 rownum = sheet.nrows
 colnum = sheet.ncols
 if rownum > 0 and colnum > 0:
-    for raw in range(colnum):
-        inter.append(str(sheet.col(raw)[0]).replace("text:", "")
-                     .replace("'", "").replace(":", "").replace(",", ""))
-
+    for raw in range(rownum):
+        for cal in range(colnum):
+            strs = str(sheet.row(raw)[cal]).replace("text:", "").replace("'", "").replace(":", "").replace(",", "").replace("empty", "").replace("number", "")
+            print(strs, end= " ")
     else:
         pass
-    print(len(inter))
-    print("\n".join(inter))
