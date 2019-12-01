@@ -1,29 +1,20 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Сергей Полунец'
 import sys
-from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.pdfpage import PDFPage
-from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
-from pdfminer.layout import LAParams
-import io
+import xlrd
 
-def pdfparser(data):
+wr_file = xlrd.open_workbook(r'./x.xlsx')
+sheet = wr_file.sheet_by_index(0)
 
-    fp = open(data, 'rb')
-    rsrcmgr = PDFResourceManager()
-    retstr = io.StringIO()
-    codec = 'utf-8'
-    laparams = LAParams()
-    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
-    # Create a PDF interpreter object.
-    interpreter = PDFPageInterpreter(rsrcmgr, device)
-    # Process each page contained in the document.
+inter = []
+rownum = sheet.nrows
+colnum = sheet.ncols
+if rownum > 0 and colnum > 0:
+    for raw in range(colnum):
+        inter.append(str(sheet.col(raw)[0]).replace("text:", "")
+                     .replace("'", "").replace(":", "").replace(",", ""))
 
-    for page in PDFPage.get_pages(fp):
-        interpreter.process_page(page)
-        data = retstr.getvalue()
-
-    print(data)
-
-if __name__ == '__main__':
-    pdfparser('UsageStatus (2).pdf')
+    else:
+        pass
+    print(len(inter))
+    print("\n".join(inter))
