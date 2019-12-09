@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Сергей Полунец'
+
 import sys
 import os
 import xlrd
@@ -22,15 +23,17 @@ class Main:
             for raw in range(self.rownum):
                 self.strs = " "
                 for cal in range(self.colnum):
-                    self.strs = self.strs + str(self.sheet.row(raw)[cal]).replace("text:", " ").replace("'", "").replace(",",
-                                                                                                          "").replace(
+                    self.strs = self.strs + str(self.sheet.row(raw)[cal]).replace("text:", " ").replace("'",
+                                                                                                        "").replace(",",
+                                                                                                                    "").replace(
                         "empty", "").replace("number", "")
                     if cal + 1 == self.colnum:
                         self.f.write(self.strs + "\n")
             else:
                 pass
             self.f.close()
-
+        else:
+            sys.exit(1)
         self.ff = open(self.pathv, mode="r", encoding="utf-8")
         self.textv = self.ff.read().replace("\n", ' ')
         self.ff.close()
@@ -45,20 +48,26 @@ class Main:
         for i in self.textt:
             self.listel.append(i.replace('\n', ''))
         for self.tels in self.listel:
-        	self.telo = self.textv.find(self.tels)
-        	while self.telo > 0:
-        		self.results.append(self.telo)
-        		self.telo = self.textv.find(self.tels, self.telo + len(self.tels))
+            self.telo = self.textv.find(self.tels)
+            while self.telo > 0:
+                self.results.append(self.telo)
+                self.telo = self.textv.find(self.tels, self.telo + len(self.tels))
+        print("\033[1;37;40mЗнайдено", end='')
+        print("\033[1;36;40m {0} ".format(len(self.results)), end="")
+        print("\033[1;37;40mспівпадінь")
         for i in self.results:
-            print("-------------------------------------")
-            self.textsa = str(self.textv[i-23: i-4])
-            self.textse = str(self.textv[i-2: i+58]).replace(":", " ")
-            print("{0} {1}".format(self.textsa, self.textse))
+            print("\033[1;34;40m-------------------------------------")
+            self.textsa = str(self.textv[i - 23: i - 4])
+            self.numer = str(self.textv[i - 2: i + 9])
+            self.textse = str(self.textv[i + 12: i + 58]).replace(":", " ")
+            print("\033[1;37;40m{0}".format(self.textsa), end=""'')
+            print("\033[1;36;40m {0}".format(self.numer), end="")
+            print("\033[1;37;40m {0}".format(self.textse), )
         os.remove(self.pathv)
-    
-
+        print("\033[1;30;40m ")
 
 
 if __name__ == '__main__':
+    print("\033[1;33;40mОбробка даних!")
     m = Main()
     m.worck()

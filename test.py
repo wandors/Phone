@@ -1,23 +1,32 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Сергей Полунец'
 import sys
-import xlrd
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfpage import PDFPage
+from pdfminer.converter import XMLConverter, HTMLConverter, TextConverter
+from pdfminer.layout import LAParams
+import io
 
-wr_file = xlrd.open_workbook(r'./x.xlsx')
-sheet = wr_file.sheet_by_index(0)
+def pdfparser(data):
 
-rownum = sheet.nrows
-colnum = sheet.ncols
-if rownum > 0 and colnum > 0:
-    f = open("./tim.txt", 'w', encoding="utf-8")
-    for raw in range(rownum):
-        strs = " "
-        for cal in range(colnum):
-            strs = strs + str(sheet.row(raw)[cal]).replace("text:", " ").replace("'", "").replace(",", "").replace("empty", "").replace("number", "")
-            if cal + 1 == colnum:
-                f.write(strs + "\n")
+    fp = open(data, 'rb')
+    rsrcmgr = PDFResourceManager()
+    retstr = io.StringIO()
+    codec = 'utf-8'
+    laparams = LAParams()
+    device = TextConverter(rsrcmgr, retstr, codec = "utf-8", laparams=laparams)
+    # Create a PDF interpreter object.
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    # Process each page contained in the document.
 
-    else:
-        pass
-    f.close()
+    for page in PDFPage.get_pages(fp):
+        interpreter.process_page(page)
+        data = retstr.getvalue()
 
+    with open('uss.txt', 'w', encoding='utf-8') as file:
+        file.write(data)
+        file.close()
+    print(data)
+
+if __name__ == '__main__':
+    pdfparser('UsageStatus (2).pdf')
