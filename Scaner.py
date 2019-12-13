@@ -4,17 +4,28 @@ __author__ = 'Сергей Полунец'
 import sys
 import os
 import xlrd
+import zipfile
+
 
 
 class Main:
-    pathE = "./Деталізація витрат.xlsx"
+    pathE = "Деталізація витрат.xlsx"
     patht = "./telss.txt"
     pathv = "./tim.txt"
+    pathen = os.environ["USERPROFILE"] + '/Downloads'
     listel = []
     imters = []
 
     def __init__(self):
-        self.wr_file = xlrd.open_workbook(self.pathE)
+        for i in os.listdir(self.pathen):
+            if os.path.splitext(i)[1] == '.zip':
+                with zipfile.ZipFile(self.pathen + "/{0}".format(i)) as self.myzip:
+                    with self.myzip.open(self.pathE) as self.myfile:
+                        with open("./{0}".format(self.pathE), 'wb') as self.xfil:
+                            self.xfil.write(self.myfile.read())
+
+    def works(self):
+        self.wr_file = xlrd.open_workbook("./{0}".format(self.pathE))
         self.sheet = self.wr_file.sheet_by_index(0)
         self.rownum = self.sheet.nrows
         self.colnum = self.sheet.ncols
@@ -70,4 +81,5 @@ class Main:
 if __name__ == '__main__':
     print("\033[1;33;40mОбробка даних!")
     m = Main()
+    m.works()
     m.worck()
