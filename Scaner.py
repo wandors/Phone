@@ -12,7 +12,7 @@ class Main:
     pathE = "Деталізація витрат.xlsx"
     patht = "./telss.txt"
     pathv = "./tim.txt"
-    pathen = os.environ["USERPROFILE"] + '/Downloads'
+    pathen = os.environ["USERPROFILE"] + '/Downloads/Tel'
     listel = []
     imters = []
 
@@ -69,8 +69,8 @@ class Main:
         for i in self.results:
             print("\033[1;34;40m-------------------------------------")
             self.textsa = str(self.textv[i - 23: i - 4])
-            self.numer = str(self.textv[i - 2: i + 9])
-            self.textse = str(self.textv[i + 12: i + 58]).replace(":", " ")
+            self.numer = str(self.textv[i - 2: i + 10])
+            self.textse = str(self.textv[i + 11: i + 58]).replace(":", " ")
             print("\033[1;37;40m{0}".format(self.textsa), end=""'')
             print("\033[1;36;40m {0}".format(self.numer), end="")
             print("\033[1;37;40m {0}".format(self.textse), )
